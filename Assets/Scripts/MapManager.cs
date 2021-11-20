@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TilemapManager : MonoBehaviour
+public class MapManager : MonoBehaviour
 {
 	public Tilemap m_tmField;
+	public Tilemap m_tmPlayerPosition;
 	private void Start()
 	{
-		//Debug.Log(m_tmField.cellBounds.size);
-		//Debug.Log(m_tmField.cellBounds.position);
-
+		/*
 		for( int y = m_tmField.cellBounds.position.y; y < m_tmField.cellBounds.position.y+m_tmField.cellBounds.size.y; y++)
 		{
 			for( int x = m_tmField.cellBounds.position.x; x < m_tmField.cellBounds.position.x + m_tmField.cellBounds.size.x; x++)
@@ -18,6 +17,14 @@ public class TilemapManager : MonoBehaviour
 				Debug.Log(m_tmField.GetTile(new Vector3Int(x, y, 0)));
 			}
 		}
+		*/
+
+		List<Vector3Int> positionarr = GetPlayerStartPositions();
+		foreach(Vector3Int startTilePos in positionarr)
+		{
+			Debug.Log(startTilePos.ToString());
+		}
+
 	}
 
 	private void Update()
@@ -37,5 +44,23 @@ public class TilemapManager : MonoBehaviour
 			}
 		}
 	}
+	public List<Vector3Int> GetPlayerStartPositions()
+	{
+		TileBase[] baseArr = m_tmPlayerPosition.GetTilesBlock(m_tmPlayerPosition.cellBounds);
+		List<Vector3Int> ret = new List<Vector3Int>();
 
+		for (int y = m_tmPlayerPosition.cellBounds.yMin; y < m_tmPlayerPosition.cellBounds.yMax; y++)
+		{
+			for (int x = m_tmPlayerPosition.cellBounds.xMin; x < m_tmPlayerPosition.cellBounds.xMax; x++)
+			{
+				Vector3Int pos = new Vector3Int(x, y, 0);
+				UnitStartTile st = m_tmPlayerPosition.GetTile<UnitStartTile>(pos);
+				if( st != null)
+				{
+					ret.Add(pos);
+				}
+			}
+		}
+		return ret;
+	}
 }
