@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class MapManager : MonoBehaviour
+public class GridManager : MonoBehaviour
 {
 	public Tilemap m_tmField;
 	public Tilemap m_tmPlayerPosition;
@@ -22,9 +22,8 @@ public class MapManager : MonoBehaviour
 		List<Vector3Int> positionarr = GetPlayerStartPositions();
 		foreach(Vector3Int startTilePos in positionarr)
 		{
-			Debug.Log(startTilePos.ToString());
+			//Debug.Log(startTilePos.ToString());
 		}
-
 	}
 
 	private void Update()
@@ -36,11 +35,11 @@ public class MapManager : MonoBehaviour
 			if (m_tmField.HasTile(grid))
 			{
 				TileBase tile = m_tmField.GetTile(grid);
-				Debug.Log(tile);
+				//Debug.Log(tile);
 			}
 			else
 			{
-				Debug.Log("nohit");
+				//Debug.Log("nohit");
 			}
 		}
 	}
@@ -49,16 +48,12 @@ public class MapManager : MonoBehaviour
 		TileBase[] baseArr = m_tmPlayerPosition.GetTilesBlock(m_tmPlayerPosition.cellBounds);
 		List<Vector3Int> ret = new List<Vector3Int>();
 
-		for (int y = m_tmPlayerPosition.cellBounds.yMin; y < m_tmPlayerPosition.cellBounds.yMax; y++)
+		foreach( Vector3Int pos in m_tmPlayerPosition.cellBounds.allPositionsWithin)
 		{
-			for (int x = m_tmPlayerPosition.cellBounds.xMin; x < m_tmPlayerPosition.cellBounds.xMax; x++)
+			UnitStartTile st = m_tmPlayerPosition.GetTile<UnitStartTile>(pos);
+			if (st != null)
 			{
-				Vector3Int pos = new Vector3Int(x, y, 0);
-				UnitStartTile st = m_tmPlayerPosition.GetTile<UnitStartTile>(pos);
-				if( st != null)
-				{
-					ret.Add(pos);
-				}
+				ret.Add(pos);
 			}
 		}
 		return ret;
