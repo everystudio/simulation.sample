@@ -37,4 +37,6 @@ public abstract class GameState
     public virtual void OnStateExit()
     {
     }
+
+    public virtual void OnUpdate() { }
 }

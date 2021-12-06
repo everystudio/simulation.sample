@@ -13,7 +13,16 @@ public class GameStateWaitingForInput : GameState
         //Debug.Log($"OnUnitClicked:{_unit.name}");
         if (_unit.PlayerNumber.Equals(m_gameManager.CurrentPlayerNumber))
         {
-            m_gameManager.CurrentGameState = new GameStateUnitSelected(m_gameManager, _unit);
+            //m_gameManager.CurrentGameState = new GameStateUnitMenuTop(m_gameManager, _unit);
+            m_gameManager.CurrentGameState = new GameStateUnitMoveArea(m_gameManager, _unit);
+        }
+    }
+
+	public override void OnUpdate()
+	{
+		if (Input.GetMouseButtonDown(1))
+		{
+            m_gameManager.CurrentGameState = new GameStateTurnMenu(m_gameManager);
         }
     }
 

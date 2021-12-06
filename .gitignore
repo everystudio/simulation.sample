@@ -48,4 +48,11 @@ Assets/Energy Bar Toolkit/Example.meta
 .vs/*
 ignore_resources/*
 
-#testコミット
+#
+Assets/Ludiq/Ludiq.Peek/*
+Assets/Ludiq/Ludiq.Peek.meta
+Assets/Ludiq/Ludiq.PeekCore/*
+Assets/Ludiq/Ludiq.PeekCore.meta
+Assets/Ludiq.Generated/*
+Assets/Ludiq.Generated.meta
+

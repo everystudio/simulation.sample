@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public event EventHandler GameEnded;
     public event EventHandler TurnEnded;
 
-    public List<Player> Players { get; private set; }
+    public List<PlayerBase> Players { get; private set; }
     public List<TileInfo> TileInfos { get; private set; }
     public List<UnitBase> Units { get; private set; }
 
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     }
     public int NumberOfPlayers { get; private set; }
 
-    public Player CurrentPlayer
+    public PlayerBase CurrentPlayer
     {
         get { return Players.Find(p => p.PlayerNumber.Equals(CurrentPlayerNumber)); }
     }
@@ -70,10 +70,10 @@ public class GameManager : MonoBehaviour
 	{
         if (Players == null || Players.Count == 0)
         {
-            Players = new List<Player>();
+            Players = new List<PlayerBase>();
             // ƒvƒŒƒCƒ„[‚Ìİ’è
-            Player[] PlayerArr = FindObjectsOfType<Player>();
-            foreach(Player p in PlayerArr)
+            PlayerBase[] PlayerArr = FindObjectsOfType<PlayerBase>();
+            foreach(PlayerBase p in PlayerArr)
 			{
                 Players.Add(p);
 			}
@@ -184,4 +184,34 @@ public class GameManager : MonoBehaviour
     {
         CurrentGameState.OnCellClicked(sender as TileInfo);
     }
+
+    public void EndTurn()
+	{
+        if(Units.Select(u=>u.PlayerNumber).Distinct().Count() == 1)
+		{
+            return;
+		}
+        Units.FindAll(u => u.PlayerNumber.Equals(CurrentPlayerNumber)).ForEach(u => { u.OnTurnEnd(); });
+
+        CurrentPlayerNumber = (CurrentPlayerNumber + 1) % NumberOfPlayers;
+        while (Units.FindAll(u => u.PlayerNumber.Equals(CurrentPlayerNumber)).Count == 0)
+        {
+            CurrentPlayerNumber = (CurrentPlayerNumber + 1) % NumberOfPlayers;
+        }//Skipping players that are defeated.
+
+        if (TurnEnded != null)
+        {
+            TurnEnded.Invoke(this, new EventArgs());
+        }
+        Units.FindAll(u => u.PlayerNumber.Equals(CurrentPlayerNumber)).ForEach(u => { u.OnTurnStart(); });
+        Players.Find(p => p.PlayerNumber.Equals(CurrentPlayerNumber)).Play(this);
+    }
+
+	private void Update()
+	{
+		if( CurrentGameState != null)
+		{
+            CurrentGameState.OnUpdate();
+        }
+	}
 }

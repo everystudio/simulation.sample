@@ -125,6 +125,8 @@ public abstract class UnitBase : MonoBehaviour
     public virtual void OnTurnEnd()
     {
         cachedPaths = null;
+
+        // バフ関係の状態更新処理
         //Buffs.FindAll(b => b.Duration == 0).ForEach(b => { b.Undo(this); });
         //Buffs.RemoveAll(b => b.Duration == 0);
         //Buffs.ForEach(b => { b.Duration--; });

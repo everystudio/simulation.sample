@@ -48,7 +48,7 @@ public class Slime : UnitBase
 
 	public override void UnMark()
 	{
-		Debug.Log("unit.unmark");
+		//Debug.Log("unit.unmark");
 	}
 
 

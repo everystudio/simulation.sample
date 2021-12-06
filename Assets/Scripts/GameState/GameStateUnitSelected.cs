@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using anogamelib;
 
-class GameStateUnitSelected : GameState
+class GameStateUnitMoveArea : GameState
 {
     private UnitBase m_unit;
     private HashSet<TileInfo> _pathsInRange;
@@ -14,13 +15,14 @@ class GameStateUnitSelected : GameState
 
     private List<TileInfo> _currentPath;
 
-    public GameStateUnitSelected(GameManager cellGrid, UnitBase unit) : base(cellGrid)
+    public GameStateUnitMoveArea(GameManager _gameManager, UnitBase _unit) : base(_gameManager)
     {
-        m_unit = unit;
+        m_unit = _unit;
         _pathsInRange = new HashSet<TileInfo>();
         _currentPath = new List<TileInfo>();
         _unitsInRange = new List<UnitBase>();
         _unitsMarkedInRange = new List<UnitBase>();
+
     }
 
     public override void OnCellClicked(TileInfo cell)
@@ -37,7 +39,7 @@ class GameStateUnitSelected : GameState
         }
         var path = m_unit.FindPath(m_gameManager.TileInfos, cell);
         m_unit.Move(cell, path);
-        m_gameManager.CurrentGameState = new GameStateUnitSelected(m_gameManager, m_unit);
+        m_gameManager.CurrentGameState = new GameStateUnitMoveArea(m_gameManager, m_unit);
     }
 
     public override void OnUnitClicked(UnitBase unit)
@@ -51,12 +53,12 @@ class GameStateUnitSelected : GameState
         if (_unitsInRange.Contains(unit) && !m_unit.m_bIsMoving)
         {
             m_unit.AttackHandler(unit);
-            m_gameManager.CurrentGameState = new GameStateUnitSelected(m_gameManager, m_unit);
+            m_gameManager.CurrentGameState = new GameStateUnitMoveArea(m_gameManager, m_unit);
         }
 
         if (unit.PlayerNumber.Equals(m_unit.PlayerNumber))
         {
-            m_gameManager.CurrentGameState = new GameStateUnitSelected(m_gameManager, unit);
+            m_gameManager.CurrentGameState = new GameStateUnitMoveArea(m_gameManager, unit);
         }
 
     }

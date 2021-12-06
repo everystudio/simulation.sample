@@ -8,7 +8,7 @@ using UnityEngine.Tilemaps;
 public class TileInfo : MonoBehaviour , IGraphNode, IEquatable<TileInfo>
 {
     public TileParam m_tileParam;
-
+    public float MovementCost { get { return m_tileParam.MovementCost; } }
     [HideInInspector]
     [SerializeField]
     private Vector2 _offsetCoord;
