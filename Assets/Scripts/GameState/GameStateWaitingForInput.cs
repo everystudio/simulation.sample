@@ -13,8 +13,7 @@ public class GameStateWaitingForInput : GameState
         //Debug.Log($"OnUnitClicked:{_unit.name}");
         if (_unit.PlayerNumber.Equals(m_gameManager.CurrentPlayerNumber))
         {
-            //m_gameManager.CurrentGameState = new GameStateUnitMenuTop(m_gameManager, _unit);
-            m_gameManager.CurrentGameState = new GameStateUnitMoveArea(m_gameManager, _unit);
+            m_gameManager.CurrentGameState = new GameStateUnitMenuTop(m_gameManager, _unit);
         }
     }
 

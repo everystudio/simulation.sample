@@ -6,9 +6,14 @@ using UnityEngine.EventSystems;
 
 public class UIUnitTop : UIBase
 {
-	public UIUnitTop() : base("UI/UIUnitTop", UIGroup.Dialog,
-		UIPreset.BackVisible|UIPreset.LoadingWithoutFade)
-	{ }
+	private GameManager m_gameManager;
+	private UnitBase m_selectingUnit;
+	public UIUnitTop(GameManager _gameManager, UnitBase _unit) : base("UI/UIUnitTop", UIGroup.Dialog,
+		UIPreset.BackVisible | UIPreset.LoadingWithoutFade)
+	{
+		m_gameManager = _gameManager;
+		m_selectingUnit = _unit;
+	}
 
 	public override void OnActive()
 	{
@@ -36,6 +41,21 @@ public class UIUnitTop : UIBase
 	public override bool OnClick(string _strName, GameObject _gameObject, PointerEventData _pointer, SE se)
 	{
 		Debug.Log("UIUnitTop.OnClick");
+		if( _strName == "imgCommandMove")
+		{
+			m_gameManager.CurrentGameState = new GameStateUnitMoveArea(m_gameManager, m_selectingUnit);
+			UIController.Instance.Remove(this);
+		}
+		else if( _strName == "imgCommandAttack")
+		{
+			m_gameManager.CurrentGameState = new GameStateUnitAttack(m_gameManager, m_selectingUnit);
+			UIController.Instance.Remove(this);
+		}
+		else if(_strName == "imgCommandClose")
+		{
+			m_gameManager.CurrentGameState = new GameStateWaitingForInput(m_gameManager);
+			UIController.Instance.Remove(this);
+		}
 
 		return base.OnClick(_strName, _gameObject, _pointer, se);
 	}

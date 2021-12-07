@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime : UnitBase
+public class Slime : UnitBase2D
 {
+	/*
 	public override void MarkAsAttacking(UnitBase _target)
 	{
 		throw new System.NotImplementedException();
@@ -31,11 +32,6 @@ public class Slime : UnitBase
 		//Debug.Log("unit.markasfriendly");
 	}
 
-	public override void MarkAsReachable()
-	{
-		Debug.Log("unit.MarkAsReachable");
-	}
-
 	public override void MarkAsReachableEnemy()
 	{
 		Debug.Log($"MarkAsReachableEnemy:{gameObject.name}");
@@ -50,6 +46,7 @@ public class Slime : UnitBase
 	{
 		//Debug.Log("unit.unmark");
 	}
+	*/
 
 
 }

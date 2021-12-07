@@ -145,7 +145,6 @@ public abstract class UnitBase : MonoBehaviour
     public abstract void MarkAsAttacking(UnitBase _target);
     public abstract void MarkAsDestroyed();
     public abstract void MarkAsFriendly();
-    public abstract void MarkAsReachable();
     public abstract void MarkAsReachableEnemy();
     public abstract void MarkAsSelected();
     public abstract void MarkAsFinished();
@@ -175,17 +174,22 @@ public abstract class UnitBase : MonoBehaviour
             && other.PlayerNumber != PlayerNumber
             && ActionPoints >= 1;
     }
+    public virtual bool IsTileInfoAttackable(TileInfo _target)
+	{
+        return currentTileInfo.GetDistance(_target) <= AttackRange
+            && ActionPoints >= 1;
+    }
 
-    public void AttackHandler(UnitBase unitToAttack)
+    public void AttackHandler(UnitBase _targetUnit)
     {
-        if (!IsUnitAttackable(unitToAttack, CurrentTileInfo))
+        if (!IsUnitAttackable(_targetUnit, CurrentTileInfo))
         {
             return;
         }
-
-        AttackAction attackAction = DealDamage(unitToAttack);
-        MarkAsAttacking(unitToAttack);
-        unitToAttack.DefendHandler(this, attackAction.Damage);
+        //Debug.Log("attackhandler");
+        AttackAction attackAction = DealDamage(_targetUnit);
+        MarkAsAttacking(_targetUnit);
+        _targetUnit.DefendHandler(this, attackAction.Damage);
         AttackActionPerformed(attackAction.ActionCost);
     }
     protected virtual AttackAction DealDamage(UnitBase unitToAttack)
@@ -227,8 +231,6 @@ public abstract class UnitBase : MonoBehaviour
     }
     protected virtual void DefenceActionPerformed() { }
 
-
-
     public List<TileInfo> FindPath(List<TileInfo> cells, TileInfo destination)
     {
         if (cachedPaths != null && cachedPaths.ContainsKey(destination))
@@ -240,17 +242,17 @@ public abstract class UnitBase : MonoBehaviour
             return _fallbackPathfinder.FindPath(GetGraphEdges(cells), CurrentTileInfo, destination);
         }
     }
-    protected virtual Dictionary<TileInfo, Dictionary<TileInfo, float>> GetGraphEdges(List<TileInfo> cells)
+    protected virtual Dictionary<TileInfo, Dictionary<TileInfo, float>> GetGraphEdges(List<TileInfo> _tileInfos)
     {
         Dictionary<TileInfo, Dictionary<TileInfo, float>> ret = new Dictionary<TileInfo, Dictionary<TileInfo, float>>();
-        foreach (var cell in cells)
+        foreach (var tileInfo in _tileInfos)
         {
-            if (IsCellTraversable(cell) || cell.Equals(CurrentTileInfo))
+            if (IsCellTraversable(tileInfo) || tileInfo.Equals(CurrentTileInfo))
             {
-                ret[cell] = new Dictionary<TileInfo, float>();
-                foreach (var neighbour in cell.GetNeighbours(cells).FindAll(IsCellTraversable))
+                ret[tileInfo] = new Dictionary<TileInfo, float>();
+                foreach (var neighbour in tileInfo.GetNeighbours(_tileInfos).FindAll(IsCellTraversable))
                 {
-                    ret[cell][neighbour] = neighbour.m_tileParam.MovementCost;
+                    ret[tileInfo][neighbour] = neighbour.m_tileParam.MovementCost;
                 }
             }
         }
@@ -264,11 +266,11 @@ public abstract class UnitBase : MonoBehaviour
     {
         return !_tileInfo.m_tileParam.IsTaken && _tileInfo.CurrentUnit == null;
     }
-    public HashSet<TileInfo> GetAvailableDestinations(List<TileInfo> cells)
+    public HashSet<TileInfo> GetAvailableDestinations(List<TileInfo> _tileInfos)
     {
         cachedPaths = new Dictionary<TileInfo, List<TileInfo>>();
 
-        var paths = CachePaths(cells);
+        var paths = CachePaths(_tileInfos);
         //Debug.Log(paths.Count);
         foreach (var key in paths.Keys)
         {
@@ -293,7 +295,6 @@ public abstract class UnitBase : MonoBehaviour
         var paths = _pathfinder.findAllPaths(edges, CurrentTileInfo);
         return paths;
     }
-
 
     public virtual void Move(TileInfo destinationCell, List<TileInfo> path)
     {
@@ -328,7 +329,7 @@ public abstract class UnitBase : MonoBehaviour
         foreach (var cell in path)
         {
             Vector3 destination_pos = new Vector3(cell.transform.localPosition.x, cell.transform.localPosition.y, transform.localPosition.z);
-            Debug.Log(destination_pos);
+            //Debug.Log(destination_pos);
             while (transform.localPosition != destination_pos)
             {
                 transform.localPosition = Vector3.MoveTowards(transform.localPosition, destination_pos, Time.deltaTime * MovementAnimationSpeed);

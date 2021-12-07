@@ -41,7 +41,7 @@ public class PlayerAI : PlayerBase
                 unit.AttackHandler(unitsInRange[index]);
                 yield return new WaitForSeconds(0.5f);
                 continue;
-            }//If there is an enemy in range, attack it.
+            }
 
             List<TileInfo> potentialDestinations = new List<TileInfo>();
 
@@ -49,7 +49,7 @@ public class PlayerAI : PlayerBase
             {
                 potentialDestinations.AddRange(m_gameManager.TileInfos.FindAll(
                     c => unit.IsTileInfoMovableTo(c) && unit.IsUnitAttackable(enemyUnit, c)));
-            }//Making a list of cells that the unit can attack from.
+            }
 
             var notInRange = potentialDestinations.FindAll(c => c.GetDistance(unit.CurrentTileInfo) > unit.MovementPoints);
             potentialDestinations = potentialDestinations.Except(notInRange).ToList();
@@ -81,7 +81,7 @@ public class PlayerAI : PlayerBase
                     break;
                 }
                 yield return 0;
-            }//If there is a path to any cell that the unit can attack from, move there.
+            }
 
             if (shortestPath != null)
             {
@@ -100,7 +100,7 @@ public class PlayerAI : PlayerBase
                     }
                     yield return 0;
                 }
-            }//If the path cost is greater than unit movement points, move as far as possible.
+            }
 
             foreach (var enemyUnit in enemyUnits)
             {
@@ -111,7 +111,7 @@ public class PlayerAI : PlayerBase
                     yield return new WaitForSeconds(0.5f);
                     break;
                 }
-            }//Look for enemies in range and attack.
+            }
         }
         m_gameManager.EndTurn();
     }

@@ -10,7 +10,7 @@ public class GameStateUnitMenuTop : GameState
 	public GameStateUnitMenuTop(GameManager _gameManager, UnitBase _unit) : base(_gameManager)
 	{
 		m_unit = _unit;
-		UIController.Instance.Replace(new UIBase[] { new UIUnitTop() });
+		UIController.Instance.Replace(new UIBase[] { new UIUnitTop(_gameManager,_unit) });
 
 		//Canvas canv = GameObject.Find("HUDCanvas").GetComponent<Canvas>();
 		/*
