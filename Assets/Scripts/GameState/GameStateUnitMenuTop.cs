@@ -7,7 +7,7 @@ public class GameStateUnitMenuTop : GameState
 {
 	private UnitBase m_unit;
 
-	public GameStateUnitMenuTop(GameManager _gameManager, UnitBase _unit) : base(_gameManager)
+	public GameStateUnitMenuTop(StrategyBase _gameManager, UnitBase _unit) : base(_gameManager)
 	{
 		m_unit = _unit;
 		UIController.Instance.Replace(new UIBase[] { new UIUnitTop(_gameManager,_unit) });

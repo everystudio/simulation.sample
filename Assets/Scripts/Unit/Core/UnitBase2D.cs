@@ -20,9 +20,9 @@ public class UnitBase2D : UnitBase
 		StopCoroutine(PulseCoroutine);
 		transform.localScale = new Vector3(1, 1, 1);
 	}
-	public override void MarkAsAttacking(UnitBase _target)
+	public override void MarkAsAttacking(UnitBase _target, System.Action _onFinished)
 	{
-		StartCoroutine(Jerk(_target));
+		StartCoroutine(Jerk(_target , _onFinished));
 	}
 	public override void MarkAsDefending(UnitBase _aggressor)
 	{
@@ -58,7 +58,7 @@ public class UnitBase2D : UnitBase
 		SetColor(Color.white);
 	}
 
-	private IEnumerator Jerk(UnitBase other)
+	private IEnumerator Jerk(UnitBase other, System.Action _onFinished)
 	{
 		GetComponent<SpriteRenderer>().sortingOrder = 6;
 
@@ -88,6 +88,7 @@ public class UnitBase2D : UnitBase
 			transform.position.z);
 
 		GetComponent<SpriteRenderer>().sortingOrder = 4;
+		_onFinished.Invoke();
 	}
 
 	private IEnumerator Glow(Color color, float cooloutTime)
@@ -109,7 +110,6 @@ public class UnitBase2D : UnitBase
 			}
 			yield return 0;
 		}
-
 		_renderer.color = Color.clear;
 	}
 	private IEnumerator Pulse(float breakTime, float delay, float scaleFactor)

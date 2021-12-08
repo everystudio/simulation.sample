@@ -6,13 +6,13 @@ using UnityEngine;
 public class PlayerAI : PlayerBase
 {
 	private System.Random m_rnd;
-	private GameManager m_gameManager;
+	private StrategyBase m_gameManager;
 	public PlayerAI()
 	{
 		m_rnd = new System.Random();
 	}
 
-	public override void Play(GameManager _gameManager)
+	public override void Play(StrategyBase _gameManager)
 	{
 		_gameManager.CurrentGameState = new GameStateAITurn(_gameManager);
 		m_gameManager = _gameManager;
@@ -38,8 +38,15 @@ public class PlayerAI : PlayerBase
             if (unitsInRange.Count != 0)
             {
                 var index = m_rnd.Next(0, unitsInRange.Count);
-                unit.AttackHandler(unitsInRange[index]);
-                yield return new WaitForSeconds(0.5f);
+
+                bool bAttacking = true;
+                unit.AttackHandler(unitsInRange[index] , ()=>{
+                    bAttacking = false;
+                });
+				while (bAttacking)
+				{
+                    yield return 0;
+				}
                 continue;
             }
 
@@ -72,8 +79,9 @@ public class PlayerAI : PlayerBase
                 var pathCost = path.Sum(h => h.MovementCost);
                 if (pathCost > 0 && pathCost <= unit.MovementPoints)
                 {
-                    unit.Move(potentialDestination, path);
-                    while (unit.m_bIsMoving)
+                    bool bMoving = true;
+                    unit.Move(potentialDestination, path , ()=> { bMoving = false; } );
+                    while (bMoving)
                     {
                         yield return 0;
                     }
@@ -91,8 +99,9 @@ public class PlayerAI : PlayerBase
                     var pathCost = path.Sum(h => h.MovementCost);
                     if (pathCost > 0 && pathCost <= unit.MovementPoints)
                     {
-                        unit.Move(potentialDestination, path);
-                        while (unit.m_bIsMoving)
+                        bool bMoving = true;
+                        unit.Move(potentialDestination, path , ()=> { bMoving = false; });
+                        while (bMoving)
                         {
                             yield return 0;
                         }
@@ -107,7 +116,18 @@ public class PlayerAI : PlayerBase
                 var enemyCell = enemyUnit.CurrentTileInfo;
                 if (unit.IsUnitAttackable(enemyUnit, unit.CurrentTileInfo))
                 {
-                    unit.AttackHandler(enemyUnit);
+                    //unit.AttackHandler(enemyUnit);
+
+                    bool bAttacking = true;
+                    unit.AttackHandler(enemyUnit, () => {
+                        bAttacking = false;
+                    });
+                    while (bAttacking)
+                    {
+                        yield return 0;
+                    }
+
+
                     yield return new WaitForSeconds(0.5f);
                     break;
                 }

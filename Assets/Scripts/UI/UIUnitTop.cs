@@ -6,9 +6,9 @@ using UnityEngine.EventSystems;
 
 public class UIUnitTop : UIBase
 {
-	private GameManager m_gameManager;
+	private StrategyBase m_gameManager;
 	private UnitBase m_selectingUnit;
-	public UIUnitTop(GameManager _gameManager, UnitBase _unit) : base("UI/UIUnitTop", UIGroup.Dialog,
+	public UIUnitTop(StrategyBase _gameManager, UnitBase _unit) : base("UI/UIUnitTop", UIGroup.Dialog,
 		UIPreset.BackVisible | UIPreset.LoadingWithoutFade)
 	{
 		m_gameManager = _gameManager;

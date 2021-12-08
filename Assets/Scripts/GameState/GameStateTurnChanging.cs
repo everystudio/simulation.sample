@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class GameStateTurnChanging : GameState
 {
-	public GameStateTurnChanging(GameManager _manager) : base(_manager) { }
+	public GameStateTurnChanging(StrategyBase _manager) : base(_manager) { }
 }
+

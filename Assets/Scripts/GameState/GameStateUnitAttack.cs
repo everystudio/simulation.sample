@@ -15,7 +15,7 @@ class GameStateUnitAttack : GameState
 
     private List<TileInfo> _currentPath;
 
-    public GameStateUnitAttack(GameManager _gameManager, UnitBase _unit) : base(_gameManager)
+    public GameStateUnitAttack(StrategyBase _gameManager, UnitBase _unit) : base(_gameManager)
     {
         m_unit = _unit;
         _pathsInRange = new HashSet<TileInfo>();
@@ -33,24 +33,25 @@ class GameStateUnitAttack : GameState
 
     public override void OnUnitClicked(UnitBase unit)
     {
-        /*
         Debug.Log("OnUnitClicked");
-        if (unit.Equals(m_unit) || m_unit.m_bIsMoving)
+        if (unit.Equals(m_unit) )
         {
             return;
         }
 
-        if (_unitsInRange.Contains(unit) && !m_unit.m_bIsMoving)
+        if (_unitsMarkedInRange.Contains(unit) )
         {
-            m_unit.AttackHandler(unit);
-            m_gameManager.CurrentGameState = new GameStateUnitMoveArea(m_gameManager, m_unit);
+            m_unit.AttackHandler(unit , ()=>
+            {
+                m_gameManager.CurrentGameState = new GameStateWaitingForInput(m_gameManager);
+                //m_gameManager.CurrentGameState = new GameStateUnitMoveArea(m_gameManager, m_unit);
+            });
         }
 
         if (unit.PlayerNumber.Equals(m_unit.PlayerNumber))
         {
             m_gameManager.CurrentGameState = new GameStateUnitMoveArea(m_gameManager, unit);
         }
-        */
     }
     public override void OnCellDeselected(TileInfo cell)
     {

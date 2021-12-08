@@ -2,9 +2,9 @@ using System.Linq;
 
 public abstract class GameState
 {
-    protected GameManager m_gameManager;
+    protected StrategyBase m_gameManager;
 
-    protected GameState(GameManager _gameManager)
+    protected GameState(StrategyBase _gameManager)
     {
         m_gameManager = _gameManager;
     }

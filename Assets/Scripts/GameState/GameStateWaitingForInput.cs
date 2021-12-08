@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameStateWaitingForInput : GameState
 {
-	public GameStateWaitingForInput(GameManager _manager) : base(_manager)
+	public GameStateWaitingForInput(StrategyBase _manager) : base(_manager)
 	{
 
 	}

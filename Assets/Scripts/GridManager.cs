@@ -18,12 +18,13 @@ public class GridManager : MonoBehaviour
 			}
 		}
 		*/
-
+		/*
 		List<Vector3Int> positionarr = GetPlayerStartPositions();
 		foreach(Vector3Int startTilePos in positionarr)
 		{
 			//Debug.Log(startTilePos.ToString());
 		}
+		*/
 	}
 
 	private void Update()

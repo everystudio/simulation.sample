@@ -5,5 +5,5 @@ using UnityEngine;
 public abstract class PlayerBase : MonoBehaviour
 {
     public int PlayerNumber;
-    public abstract void Play(GameManager _gameManager);
+    public abstract void Play(StrategyBase _gameManager);
 }

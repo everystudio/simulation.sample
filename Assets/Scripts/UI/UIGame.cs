@@ -7,7 +7,8 @@ public class UIGame : MonoBehaviour
 {
     void Start()
     {
+        StrategyBase strategy = GameObject.FindObjectOfType<StrategyBase>();
         UIController.Instance.Implement(new PrefabLoaderResources(), null, new FadeBlackCurtain());
-        UIController.Instance.AddFront(new UIInputWait());
+        UIController.Instance.AddFront(new UIInputWait(strategy));
     }
 }

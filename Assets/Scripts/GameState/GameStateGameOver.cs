@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameStateGameOver : GameState
 {
-	public GameStateGameOver(GameManager _manager) : base(_manager)
+	public GameStateGameOver(StrategyBase _manager) : base(_manager)
 	{
 
 	}

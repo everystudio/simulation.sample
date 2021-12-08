@@ -142,7 +142,7 @@ public abstract class UnitBase : MonoBehaviour
 
 
     public abstract void MarkAsDefending(UnitBase _aggressor);
-    public abstract void MarkAsAttacking(UnitBase _target);
+    public abstract void MarkAsAttacking(UnitBase _target, Action _onFinished);
     public abstract void MarkAsDestroyed();
     public abstract void MarkAsFriendly();
     public abstract void MarkAsReachableEnemy();
@@ -180,17 +180,22 @@ public abstract class UnitBase : MonoBehaviour
             && ActionPoints >= 1;
     }
 
-    public void AttackHandler(UnitBase _targetUnit)
+    public void AttackHandler(UnitBase _targetUnit , Action _onFinished)
     {
         if (!IsUnitAttackable(_targetUnit, CurrentTileInfo))
         {
+            _onFinished.Invoke();
             return;
         }
         //Debug.Log("attackhandler");
         AttackAction attackAction = DealDamage(_targetUnit);
-        MarkAsAttacking(_targetUnit);
-        _targetUnit.DefendHandler(this, attackAction.Damage);
-        AttackActionPerformed(attackAction.ActionCost);
+        MarkAsAttacking(_targetUnit,()=>
+        {
+            _targetUnit.DefendHandler(this, attackAction.Damage);
+            AttackActionPerformed(attackAction.ActionCost);
+
+            _onFinished.Invoke();
+        });
     }
     protected virtual AttackAction DealDamage(UnitBase unitToAttack)
     {
@@ -296,33 +301,36 @@ public abstract class UnitBase : MonoBehaviour
         return paths;
     }
 
-    public virtual void Move(TileInfo destinationCell, List<TileInfo> path)
+    public virtual void Move(TileInfo _destinationCell, List<TileInfo> _path , Action _onFinished)
     {
-        var totalMovementCost = path.Sum(h => h.m_tileParam.MovementCost);
-        MovementPoints -= totalMovementCost;
+        var totalMovementCost = _path.Sum(h => h.m_tileParam.MovementCost);
+        //MovementPoints -= totalMovementCost;
+        // 以前は中途半端に動くと再始動出来たけど、行動は1回だけに変更
+        MovementPoints = 0;
 
         CurrentTileInfo.m_tileParam.IsTaken = false;
         CurrentTileInfo.CurrentUnit = null;
-        CurrentTileInfo = destinationCell;
-        destinationCell.m_tileParam.IsTaken = true;
-        destinationCell.CurrentUnit = this;
+        CurrentTileInfo = _destinationCell;
+        _destinationCell.m_tileParam.IsTaken = true;
+        _destinationCell.CurrentUnit = this;
 
         if (MovementAnimationSpeed > 0)
         {
-            StartCoroutine(MovementAnimation(path));
+            StartCoroutine(MovementAnimation(_path, _onFinished));
         }
         else
         {
             Vector3 targetPos = new Vector3(CurrentTileInfo.transform.localPosition.x, CurrentTileInfo.transform.localPosition.y, transform.localPosition.z);
             transform.position = targetPos;
+            _onFinished.Invoke();
         }
 
         if (UnitMoved != null)
         {
-            UnitMoved.Invoke(this, new MovementEventArgs(CurrentTileInfo, destinationCell, path));
+            UnitMoved.Invoke(this, new MovementEventArgs(CurrentTileInfo, _destinationCell, _path));
         }
     }
-    protected virtual IEnumerator MovementAnimation(List<TileInfo> path)
+    protected virtual IEnumerator MovementAnimation(List<TileInfo> path , Action _onFinished)
     {
         m_bIsMoving = true;
         path.Reverse();
@@ -338,6 +346,7 @@ public abstract class UnitBase : MonoBehaviour
         }
         m_bIsMoving = false;
         OnMoveFinished();
+        _onFinished.Invoke();
     }
     protected virtual void OnMoveFinished() { }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameStateAITurn : GameState
 {
-    public GameStateAITurn(GameManager _gameManager) : base(_gameManager){}
+    public GameStateAITurn(StrategyBase _gameManager) : base(_gameManager){}
 
     public override void OnStateEnter()
     {

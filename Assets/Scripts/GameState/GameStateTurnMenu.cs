@@ -5,10 +5,11 @@ using anogamelib;
 
 public class GameStateTurnMenu : GameState
 {
-
-	public GameStateTurnMenu(GameManager _gameManager) : base(_gameManager) { }
+	private StrategyBase m_strategy;
+	public GameStateTurnMenu(StrategyBase _gameManager) : base(_gameManager) { m_strategy = _gameManager; }
 	public override void OnStateEnter()
 	{
+		m_strategy.TurnMenu(true);
 		UIController.Instance.AddFront(new UITurnMenu(this));
 	}
 

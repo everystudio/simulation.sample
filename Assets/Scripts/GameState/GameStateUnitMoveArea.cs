@@ -15,7 +15,7 @@ class GameStateUnitMoveArea : GameState
 
     private List<TileInfo> _currentPath;
 
-    public GameStateUnitMoveArea(GameManager _gameManager, UnitBase _unit) : base(_gameManager)
+    public GameStateUnitMoveArea(StrategyBase _gameManager, UnitBase _unit) : base(_gameManager)
     {
         m_unit = _unit;
         _pathsInRange = new HashSet<TileInfo>();
@@ -38,8 +38,9 @@ class GameStateUnitMoveArea : GameState
             return;
         }
         var path = m_unit.FindPath(m_gameManager.TileInfos, cell);
-        m_unit.Move(cell, path);
-        m_gameManager.CurrentGameState = new GameStateUnitMoveArea(m_gameManager, m_unit);
+        m_unit.Move(cell, path , ()=> {
+            m_gameManager.CurrentGameState = new GameStateUnitMenuTop(m_gameManager, m_unit);
+        });
     }
 
     public override void OnUnitClicked(UnitBase unit)
@@ -50,11 +51,13 @@ class GameStateUnitMoveArea : GameState
             return;
         }
 
+        /*
         if (_unitsInRange.Contains(unit) && !m_unit.m_bIsMoving)
         {
             m_unit.AttackHandler(unit);
             m_gameManager.CurrentGameState = new GameStateUnitMoveArea(m_gameManager, m_unit);
         }
+        */
 
         if (unit.PlayerNumber.Equals(m_unit.PlayerNumber))
         {
@@ -147,7 +150,9 @@ class GameStateUnitMoveArea : GameState
 
         if (_unitCell.GetNeighbours(m_gameManager.TileInfos).FindAll(c => c.m_tileParam.MovementCost <= m_unit.MovementPoints).Count == 0
             && _unitsInRange.Count == 0)
+        {
             m_unit.SetState(new UnitStateMarkedAsFinished(m_unit));
+        }
     }
     public override void OnStateExit()
     {
