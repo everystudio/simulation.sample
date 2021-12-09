@@ -22,6 +22,9 @@ public abstract class UnitBase : MonoBehaviour
 
     public int PlayerNumber;
     public bool m_bIsMoving;
+
+    public UnitData m_unitData;
+
     private static DijkstraPathfinding _pathfinder = new DijkstraPathfinding();
     private static Pathfinding _fallbackPathfinder = new AStarPathfinding();
 
@@ -44,12 +47,11 @@ public abstract class UnitBase : MonoBehaviour
     public float TotalMovementPoints { get; private set; }
     public float TotalActionPoints { get; private set; }
 
-    public int HitPoints;
-    public int AttackRange;
+    private int HitPoints;
+    private int AttackRange;
     public int AttackFactor;
     public int DefenceFactor;
 
-    [SerializeField]
     private float movementPoints;
     public virtual float MovementPoints
     {
@@ -64,7 +66,6 @@ public abstract class UnitBase : MonoBehaviour
     }
     public float MovementAnimationSpeed;
 
-    [SerializeField]
     private float actionPoints = 1;
     public float ActionPoints
     {
@@ -79,12 +80,18 @@ public abstract class UnitBase : MonoBehaviour
     }
     Dictionary<TileInfo, List<TileInfo>> cachedPaths = null;
 
-    private bool m_bInitialized = false;
+	private bool m_bInitialized = false;
     public virtual void Initialize()
 	{
         if (m_bInitialized == false)
         {
             UnitState = new UnitStateNormal(this);
+
+            HitPoints = m_unitData.HitPoint;
+            AttackRange = m_unitData.AttackRange;
+
+            MovementPoints = m_unitData.MovementPoint;
+            ActionPoints = m_unitData.ActionPoint;
 
             //Buffs = new List<Buff>();
             TotalMovementPoints = MovementPoints;

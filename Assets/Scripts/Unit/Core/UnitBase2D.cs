@@ -6,6 +6,13 @@ public class UnitBase2D : UnitBase
 {
 	private Coroutine PulseCoroutine;
 
+	public override void Initialize()
+	{
+		base.Initialize();
+		var _renderer = GetComponent<SpriteRenderer>();
+		_renderer.sprite = m_unitData.UnitIcon;
+	}
+
 	private void SetColor(Color _color)
 	{
 		var _renderer = GetComponent<SpriteRenderer>();

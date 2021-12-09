@@ -3171,14 +3171,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerNumber: 1
   m_bIsMoving: 0
+  m_unitData: {fileID: 11400000, guid: 44301d6f3efa5fe43a310f4986d01e6c, type: 2}
   currentTileInfo: {fileID: 0}
-  HitPoints: 0
-  AttackRange: 1
   AttackFactor: 0
   DefenceFactor: 0
-  movementPoints: 3
   MovementAnimationSpeed: 3
-  actionPoints: 1
 --- !u!4 &547259914
 Transform:
   m_ObjectHideFlags: 0
@@ -3379,14 +3376,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerNumber: 0
   m_bIsMoving: 0
+  m_unitData: {fileID: 11400000, guid: 44301d6f3efa5fe43a310f4986d01e6c, type: 2}
   currentTileInfo: {fileID: 0}
-  HitPoints: 0
-  AttackRange: 3
   AttackFactor: 0
   DefenceFactor: 0
-  movementPoints: 3
   MovementAnimationSpeed: 3
-  actionPoints: 1
 --- !u!4 &748682052
 Transform:
   m_ObjectHideFlags: 0
@@ -6614,14 +6608,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerNumber: 0
   m_bIsMoving: 0
+  m_unitData: {fileID: 11400000, guid: 44301d6f3efa5fe43a310f4986d01e6c, type: 2}
   currentTileInfo: {fileID: 0}
-  HitPoints: 0
-  AttackRange: 0
   AttackFactor: 0
   DefenceFactor: 0
-  movementPoints: 3
   MovementAnimationSpeed: 3
-  actionPoints: 1
 --- !u!1 &1486543687
 GameObject:
   m_ObjectHideFlags: 0
