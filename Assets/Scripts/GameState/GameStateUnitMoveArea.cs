@@ -32,7 +32,7 @@ class GameStateUnitMoveArea : GameState
         {
             return;
         }
-        if (cell.m_tileParam.IsTaken || !_pathsInRange.Contains(cell))
+        if ( !_pathsInRange.Contains(cell))
         {
             m_gameManager.CurrentGameState = new GameStateWaitingForInput(m_gameManager);
             return;

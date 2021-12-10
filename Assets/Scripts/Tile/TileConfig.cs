@@ -4,18 +4,20 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [System.Serializable]
+public enum TILE_TYPE
+{
+    GROUND  = 0,
+    WATER   ,
+    MAX
+}
+
+[System.Serializable]
 public struct TileParam
 {
-    public bool IsTaken;
-    public bool IsSkyTaken;
+    public TILE_TYPE TileType;
     public float MovementCost;
 
-    public GroundType groundType;
-    public enum GroundType
-    {
-        Land,
-        Water
-    };
+
 }
 
 [CreateAssetMenu(fileName = "TileConfig", menuName = "CustomTile/TileConfig")]

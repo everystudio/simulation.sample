@@ -35,7 +35,5 @@ MonoBehaviour:
   m_Flags: 1
   m_ColliderType: 1
   tileParam:
-    IsTaken: 1
-    IsSkyTaken: 0
+    TileType: 1
     MovementCost: 1
-    groundType: 1

@@ -18,4 +18,4 @@ MonoBehaviour:
   AttackRange: 1
   MovementPoint: 3
   ActionPoint: 1
-  Flying: 0
+  Flying: 1

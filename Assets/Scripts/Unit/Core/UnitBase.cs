@@ -142,7 +142,6 @@ public abstract class UnitBase : MonoBehaviour
     }
     protected virtual void OnDestroyed()
     {
-        CurrentTileInfo.m_tileParam.IsTaken = false;
         MarkAsDestroyed();
         Destroy(gameObject);
     }
@@ -272,11 +271,20 @@ public abstract class UnitBase : MonoBehaviour
     }
     public virtual bool IsTileInfoMovableTo(TileInfo _tileInfo)
     {
-        return !_tileInfo.m_tileParam.IsTaken && _tileInfo.CurrentUnit == null;
+        if( _tileInfo.m_tileParam.TileType == TILE_TYPE.WATER)
+		{
+            if (m_unitData.Flying == false)
+            {
+                return false;
+            }
+        }
+        return _tileInfo.CurrentUnit == null;// !_tileInfo.m_tileParam.IsTaken && _tileInfo.CurrentUnit == null;
     }
     public virtual bool IsCellTraversable(TileInfo _tileInfo)
     {
-        return !_tileInfo.m_tileParam.IsTaken && _tileInfo.CurrentUnit == null;
+        return IsTileInfoMovableTo(_tileInfo);
+
+        //return _tileInfo.CurrentUnit == null;// !_tileInfo.m_tileParam.IsTaken && _tileInfo.CurrentUnit == null;
     }
     public HashSet<TileInfo> GetAvailableDestinations(List<TileInfo> _tileInfos)
     {
@@ -315,10 +323,10 @@ public abstract class UnitBase : MonoBehaviour
         // 以前は中途半端に動くと再始動出来たけど、行動は1回だけに変更
         MovementPoints = 0;
 
-        CurrentTileInfo.m_tileParam.IsTaken = false;
+        //CurrentTileInfo.m_tileParam.IsTaken = false;
         CurrentTileInfo.CurrentUnit = null;
         CurrentTileInfo = _destinationCell;
-        _destinationCell.m_tileParam.IsTaken = true;
+        //_destinationCell.m_tileParam.IsTaken = true;
         _destinationCell.CurrentUnit = this;
 
         if (MovementAnimationSpeed > 0)
