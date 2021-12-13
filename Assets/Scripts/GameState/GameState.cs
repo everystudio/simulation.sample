@@ -12,17 +12,17 @@ public abstract class GameState
     public virtual void OnUnitClicked(UnitBase _unit)
     {
     }
-    public virtual void OnCellDeselected(TileInfo _tileInfo)
+    public virtual void OnTileInfoDeselected(TileInfo _tileInfo)
     {
         _tileInfo.UnMark();
     }
 
-    public virtual void OnCellSelected(TileInfo _tileInfo)
+    public virtual void OnTileInfoSelected(TileInfo _tileInfo)
     {
         _tileInfo.MarkAsHighlighted();
     }
 
-    public virtual void OnCellClicked(TileInfo _tileInfo)
+    public virtual void OnTileInfoClicked(TileInfo _tileInfo)
     {
     }
 

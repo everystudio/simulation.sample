@@ -25,7 +25,7 @@ class GameStateUnitAttack : GameState
 
     }
 
-    public override void OnCellClicked(TileInfo cell)
+    public override void OnTileInfoClicked(TileInfo cell)
     {
         m_gameManager.CurrentGameState = new GameStateWaitingForInput(m_gameManager);
         return;
@@ -53,7 +53,7 @@ class GameStateUnitAttack : GameState
             m_gameManager.CurrentGameState = new GameStateUnitMoveArea(m_gameManager, unit);
         }
     }
-    public override void OnCellDeselected(TileInfo cell)
+    public override void OnTileInfoDeselected(TileInfo cell)
     {
         //Debug.Log("OnCellDeselected");
         /*
@@ -76,7 +76,7 @@ class GameStateUnitAttack : GameState
         }
         */
     }
-    public override void OnCellSelected(TileInfo cell)
+    public override void OnTileInfoSelected(TileInfo cell)
     {
         //Debug.LogWarning("OnCellSelected");
         //base.OnCellSelected(cell);

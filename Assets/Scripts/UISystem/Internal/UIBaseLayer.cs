@@ -141,7 +141,7 @@ namespace anogamelib
 			if (m_prefab != null)
 			{
 				g = GameObject.Instantiate(m_prefab) as GameObject;
-				Debug.Log(m_prefab);
+				//Debug.Log(m_prefab);
 				g.name = m_prefab.name;
 			}
 			else

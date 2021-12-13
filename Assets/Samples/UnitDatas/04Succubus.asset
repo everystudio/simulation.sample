@@ -15,7 +15,9 @@ MonoBehaviour:
   UnitName: "\u30B5\u30AD\u30E5\u30D0\u30B9"
   UnitIcon: {fileID: 21300000, guid: 3caaa1c74cef3c946b2335d7da3bb724, type: 3}
   HitPoint: 3
-  AttackRange: 1
+  Attack: 1
+  Defence: 1
+  AttackRange: 2
   MovementPoint: 3
   ActionPoint: 1
   Flying: 0

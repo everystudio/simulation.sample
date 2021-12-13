@@ -118,13 +118,13 @@ public class StrategyBase : MonoBehaviour
             }
         }
         m_playgroundTilemap.GetComponent<TilemapRenderer>().enabled = false;
-        foreach (var cell in TileInfos)
+        foreach (var tileInfo in TileInfos)
         {
-            cell.TileInfoClicked += OnTileInfoClicked;
-            cell.TileInfoHighlighted += OnTileInfoHighlighted;
-            cell.TileInfoDehighlighted += OnTileInfoDehighlighted;
+            tileInfo.TileInfoClicked += OnTileInfoClicked;
+            tileInfo.TileInfoHighlighted += OnTileInfoHighlighted;
+            tileInfo.TileInfoDehighlighted += OnTileInfoDehighlighted;
 
-            cell.GetComponent<TileInfo>().GetNeighbours(TileInfos);
+            tileInfo.GetNeighbours(TileInfos);
         }
 
         Units = new List<UnitBase>();
@@ -141,8 +141,9 @@ public class StrategyBase : MonoBehaviour
                 tileinfo.CurrentUnit = unit;
 
                 unit.transform.position = new Vector3(
-                    tileinfo.transform.position.x, tileinfo.transform.position.y, UnitBase.PosZ);
-
+                    tileinfo.transform.position.x,
+                    tileinfo.transform.position.y,
+                    UnitBase.PosZ);
             }
             AddUnit(unit.transform);
 		}
@@ -190,15 +191,15 @@ public class StrategyBase : MonoBehaviour
 
     private void OnTileInfoDehighlighted(object sender, EventArgs e)
     {
-        CurrentGameState.OnCellDeselected(sender as TileInfo);
+        CurrentGameState.OnTileInfoDeselected(sender as TileInfo);
     }
     private void OnTileInfoHighlighted(object sender, EventArgs e)
     {
-        CurrentGameState.OnCellSelected(sender as TileInfo);
+        CurrentGameState.OnTileInfoSelected(sender as TileInfo);
     }
     private void OnTileInfoClicked(object sender, EventArgs e)
     {
-        CurrentGameState.OnCellClicked(sender as TileInfo);
+        CurrentGameState.OnTileInfoClicked(sender as TileInfo);
     }
 
     public void EndTurn()
@@ -213,7 +214,7 @@ public class StrategyBase : MonoBehaviour
         while (Units.FindAll(u => u.PlayerNumber.Equals(CurrentPlayerNumber)).Count == 0)
         {
             CurrentPlayerNumber = (CurrentPlayerNumber + 1) % NumberOfPlayers;
-        }//Skipping players that are defeated.
+        }
 
         if (TurnEnded != null)
         {

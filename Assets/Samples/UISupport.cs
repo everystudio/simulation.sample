@@ -63,7 +63,13 @@ public class UISupport : MonoBehaviour
 
 	private void M_strategy_GameEnded(object sender, System.EventArgs e)
 	{
-		throw new System.NotImplementedException();
-	}
+		if((sender as StrategyBase).CurrentPlayerNumber == 0)
+		{
 
+		}
+		else
+		{
+
+		}
+	}
 }

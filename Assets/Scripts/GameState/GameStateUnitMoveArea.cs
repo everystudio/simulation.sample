@@ -25,7 +25,7 @@ class GameStateUnitMoveArea : GameState
 
     }
 
-    public override void OnCellClicked(TileInfo cell)
+    public override void OnTileInfoClicked(TileInfo cell)
     {
         //Debug.Log("OnCellClicked");
         if (m_unit.m_bIsMoving)
@@ -65,11 +65,11 @@ class GameStateUnitMoveArea : GameState
         }
 
     }
-    public override void OnCellDeselected(TileInfo cell)
+    public override void OnTileInfoDeselected(TileInfo cell)
     {
         //Debug.Log("OnCellDeselected");
 
-        base.OnCellDeselected(cell);
+        base.OnTileInfoDeselected(cell);
         foreach (var _cell in _currentPath)
         {
             if (_pathsInRange.Contains(_cell))
@@ -87,10 +87,10 @@ class GameStateUnitMoveArea : GameState
             unit.MarkAsReachableEnemy();
         }
     }
-    public override void OnCellSelected(TileInfo cell)
+    public override void OnTileInfoSelected(TileInfo cell)
     {
         //Debug.LogWarning("OnCellSelected");
-        base.OnCellSelected(cell);
+        base.OnTileInfoSelected(cell);
         if (!_pathsInRange.Contains(cell)) return;
 
         _currentPath = m_unit.FindPath(m_gameManager.TileInfos, cell);

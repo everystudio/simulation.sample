@@ -10,9 +10,13 @@ public class UnitData : ScriptableObject
 	public Sprite UnitIcon;
 
 	public int HitPoint;
+	public int Attack;
+	public int Defence;
+
 	public int AttackRange;
 	public int MovementPoint;
 	public int ActionPoint;
+
 
 	public bool Flying;
 }

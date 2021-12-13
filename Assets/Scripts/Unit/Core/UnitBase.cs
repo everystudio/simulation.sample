@@ -48,6 +48,7 @@ public abstract class UnitBase : MonoBehaviour
     public float TotalActionPoints { get; private set; }
 
     private int HitPoints;
+    public int CurrentHitPoints { get { return HitPoints; } }
     private int AttackRange;
     public int AttackFactor;
     public int DefenceFactor;

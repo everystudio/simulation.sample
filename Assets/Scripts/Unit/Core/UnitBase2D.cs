@@ -11,6 +11,13 @@ public class UnitBase2D : UnitBase
 		base.Initialize();
 		var _renderer = GetComponent<SpriteRenderer>();
 		_renderer.sprite = m_unitData.UnitIcon;
+
+		Transform marker = transform.Find("Marker");
+		if (marker != null)
+		{
+			SpriteRenderer r = marker.GetComponent<SpriteRenderer>();
+			r.sprite = m_unitData.UnitIcon;
+		}
 	}
 
 	private void SetColor(Color _color)
@@ -100,17 +107,23 @@ public class UnitBase2D : UnitBase
 
 	private IEnumerator Glow(Color color, float cooloutTime)
 	{
+		Debug.Log("Glow");
 		Transform marker = transform.Find("Marker");
 
 		if(marker == null)
 		{
+			Debug.Log("notfound");
 			yield break;
 		}
+		Debug.Log(marker);
 		SpriteRenderer _renderer = marker.GetComponent<SpriteRenderer>();
+		Debug.Log(_renderer);
 		float startTime = Time.time;
 
+		int count = 0;
 		while (startTime + cooloutTime > Time.time)
 		{
+			Debug.Log(count++);
 			if (_renderer != null)
 			{
 				_renderer.color = Color.Lerp(new Color(1, 1, 1, 0), color, (startTime + cooloutTime) - Time.time);
