@@ -2,15 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class UnitState
+namespace anogame_strategy
 {
-    protected UnitBase m_unit;
-
-    public UnitState(UnitBase _unit)
+    public abstract class UnitState
     {
-        m_unit = _unit;
-    }
+        protected UnitBase m_unit;
 
-    public abstract void Apply();
-    public abstract void MakeTransition(UnitState _state);
+        public UnitState(UnitBase _unit)
+        {
+            m_unit = _unit;
+        }
+
+        public abstract void Apply();
+        public abstract void MakeTransition(UnitState _state);
+    }
 }

@@ -2,16 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameStateAITurn : GameState
+namespace anogame_strategy
 {
-    public GameStateAITurn(StrategyBase _gameManager) : base(_gameManager){}
-
-    public override void OnStateEnter()
+    public class GameStateAITurn : GameState
     {
-        base.OnStateEnter();
-        foreach (var tileinfo in m_gameManager.TileInfos)
+        public GameStateAITurn(StrategyBase _gameManager) : base(_gameManager) { }
+
+        public override void OnStateEnter()
         {
-            tileinfo.UnMark();
+            base.OnStateEnter();
+            foreach (var tileinfo in m_gameManager.TileInfos)
+            {
+                tileinfo.UnMark();
+            }
         }
     }
 }

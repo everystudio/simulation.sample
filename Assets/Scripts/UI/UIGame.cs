@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using anogamelib;
 
-public class UIGame : MonoBehaviour
+namespace anogame_strategy
 {
-    void Start()
+    public class UIGame : MonoBehaviour
     {
-        StrategyBase strategy = GameObject.FindObjectOfType<StrategyBase>();
-        UIController.Instance.Implement(new PrefabLoaderResources(), null, new FadeBlackCurtain());
-        UIController.Instance.AddFront(new UIInputWait(strategy));
+        void Start()
+        {
+            StrategyBase strategy = GameObject.FindObjectOfType<StrategyBase>();
+            UIController.Instance.Implement(new PrefabLoaderResources(), null, new FadeBlackCurtain());
+            UIController.Instance.AddFront(new UIInputWait(strategy));
+        }
     }
 }

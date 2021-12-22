@@ -4,21 +4,24 @@ using UnityEngine;
 using anogamelib;
 using UnityEngine.EventSystems;
 
-public class UIInputWait : UIBase
+namespace anogame_strategy
 {
-	StrategyBase m_strategyBase;
-	public UIInputWait(StrategyBase _strategy) : base("UI/UIInputWait",
-		UIGroup.Scene,
-		UIPreset.BackVisible|UIPreset.BackTouchable)
+	public class UIInputWait : UIBase
 	{
-		m_strategyBase = _strategy;
-	}
-	public override bool OnClick(string _strName, GameObject _gameObject, PointerEventData _pointer, SE se)
-	{
-		if(_strName == "btnMenu")
+		StrategyBase m_strategyBase;
+		public UIInputWait(StrategyBase _strategy) : base("UI/UIInputWait",
+			UIGroup.Scene,
+			UIPreset.BackVisible | UIPreset.BackTouchable)
 		{
-			m_strategyBase.CurrentGameState = new GameStateTurnMenu(m_strategyBase);
+			m_strategyBase = _strategy;
 		}
-		return base.OnClick(_strName, _gameObject, _pointer, se);
+		public override bool OnClick(string _strName, GameObject _gameObject, PointerEventData _pointer, SE se)
+		{
+			if (_strName == "btnMenu")
+			{
+				m_strategyBase.CurrentGameState = new GameStateTurnMenu(m_strategyBase);
+			}
+			return base.OnClick(_strName, _gameObject, _pointer, se);
+		}
 	}
 }

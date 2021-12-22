@@ -2,23 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitStateMarkedAsFinished : UnitState
+namespace anogame_strategy
 {
-    public UnitStateMarkedAsFinished(UnitBase unit) : base(unit)
+    public class UnitStateMarkedAsFinished : UnitState
     {
-    }
-
-    public override void Apply()
-    {
-        m_unit.MarkAsFinished();
-    }
-
-    public override void MakeTransition(UnitState state)
-    {
-        if (state is UnitStateNormal)
+        public UnitStateMarkedAsFinished(UnitBase unit) : base(unit)
         {
-            state.Apply();
-            m_unit.UnitState = state;
+        }
+
+        public override void Apply()
+        {
+            m_unit.MarkAsFinished();
+        }
+
+        public override void MakeTransition(UnitState state)
+        {
+            if (state is UnitStateNormal)
+            {
+                state.Apply();
+                m_unit.UnitState = state;
+            }
         }
     }
 }

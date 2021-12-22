@@ -13,17 +13,19 @@ using Cinemachine;
  * Ç»Ç…Ç©ëÄçÏíÜÇÕìÆÇ©Ç»Ç¢ÇÊÇ§Ç…Ç∆Ç©ÇµÇΩÇ¢
  * 
  * */
-
-public class CameraTargetController : MonoBehaviour
+namespace anogame_strategy
 {
-	public CinemachineVirtualCamera m_virtualCamera;
-	public Vector3 mousePos;
-
-	private void Update()
+	public class CameraTargetController : MonoBehaviour
 	{
-		mousePos = Input.mousePosition;
+		public CinemachineVirtualCamera m_virtualCamera;
+		public Vector3 mousePos;
 
-		Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
-		transform.position = new Vector3(worldPos.x, worldPos.y, transform.position.z);
+		private void Update()
+		{
+			mousePos = Input.mousePosition;
+
+			Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+			transform.position = new Vector3(worldPos.x, worldPos.y, transform.position.z);
+		}
 	}
 }

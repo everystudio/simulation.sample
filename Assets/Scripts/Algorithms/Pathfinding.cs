@@ -1,16 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
-
-public abstract class Pathfinding
+namespace anogame_strategy
 {
-    public abstract List<T> FindPath<T>(Dictionary<T, Dictionary<T, float>> edges, T originNode, T destinationNode) where T : IGraphNode;
-
-    protected List<T> GetNeigbours<T>(Dictionary<T, Dictionary<T, float>> edges, T node) where T : IGraphNode
+    public abstract class Pathfinding
     {
-        if (!edges.ContainsKey(node))
+        public abstract List<T> FindPath<T>(Dictionary<T, Dictionary<T, float>> edges, T originNode, T destinationNode) where T : IGraphNode;
+
+        protected List<T> GetNeigbours<T>(Dictionary<T, Dictionary<T, float>> edges, T node) where T : IGraphNode
         {
-            return new List<T>();
+            if (!edges.ContainsKey(node))
+            {
+                return new List<T>();
+            }
+            return edges[node].Keys.ToList();
         }
-        return edges[node].Keys.ToList();
     }
 }

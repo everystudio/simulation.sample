@@ -1,25 +1,27 @@
 using System;
-
-public interface IPriorityQueue<T>
+namespace anogame_strategy
 {
-    int Count { get; }
-    void Enqueue(T item, float priority);
-    T Dequeue();
-}
-
-class PriorityQueueNode<T> : IComparable
-{
-    public T Item { get; private set; }
-    public float Priority { get; private set; }
-
-    public PriorityQueueNode(T item, float priority)
+    public interface IPriorityQueue<T>
     {
-        Item = item;
-        Priority = priority;
+        int Count { get; }
+        void Enqueue(T item, float priority);
+        T Dequeue();
     }
 
-    public int CompareTo(object obj)
+    class PriorityQueueNode<T> : IComparable
     {
-        return Priority.CompareTo((obj as PriorityQueueNode<T>).Priority);
+        public T Item { get; private set; }
+        public float Priority { get; private set; }
+
+        public PriorityQueueNode(T item, float priority)
+        {
+            Item = item;
+            Priority = priority;
+        }
+
+        public int CompareTo(object obj)
+        {
+            return Priority.CompareTo((obj as PriorityQueueNode<T>).Priority);
+        }
     }
 }

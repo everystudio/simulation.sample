@@ -3,33 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using anogamelib;
 
-public class GameStateUnitMenuTop : GameState
+namespace anogame_strategy
 {
-	private UnitBase m_unit;
-
-	public GameStateUnitMenuTop(StrategyBase _gameManager, UnitBase _unit) : base(_gameManager)
+	public class GameStateUnitMenuTop : GameState
 	{
-		m_unit = _unit;
-		UIController.Instance.Replace(new UIBase[] { new UIUnitTop(_gameManager,_unit) });
+		private UnitBase m_unit;
 
-		//Canvas canv = GameObject.Find("HUDCanvas").GetComponent<Canvas>();
-		/*
-		Vector2 MousePos;
-		RectTransformUtility.ScreenPointToLocalPointInRectangle(
-			canv.GetComponent<RectTransform>(),
-			Input.mousePosition,
-			canv.worldCamera,
-			out MousePos);
+		public GameStateUnitMenuTop(StrategyBase _gameManager, UnitBase _unit) : base(_gameManager)
+		{
+			m_unit = _unit;
+			UIController.Instance.Replace(new UIBase[] { new UIUnitTop(_gameManager, _unit) });
 
-		Debug.Log(MousePos);
+			//Canvas canv = GameObject.Find("HUDCanvas").GetComponent<Canvas>();
+			/*
+			Vector2 MousePos;
+			RectTransformUtility.ScreenPointToLocalPointInRectangle(
+				canv.GetComponent<RectTransform>(),
+				Input.mousePosition,
+				canv.worldCamera,
+				out MousePos);
 
-		MousePos += new Vector2(-120f, 50f);
+			Debug.Log(MousePos);
 
-		RectTransform rtTarget = GameObject.Find("targetImage").GetComponent<RectTransform>();
-		rtTarget.anchoredPosition = new Vector2(
-			MousePos.x,
-			MousePos.y);
-				*/
+			MousePos += new Vector2(-120f, 50f);
 
+			RectTransform rtTarget = GameObject.Find("targetImage").GetComponent<RectTransform>();
+			rtTarget.anchoredPosition = new Vector2(
+				MousePos.x,
+				MousePos.y);
+					*/
+
+		}
 	}
 }

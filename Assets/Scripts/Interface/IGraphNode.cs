@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IGraphNode 
+namespace anogame_strategy
 {
-	int GetDistance(IGraphNode _other);
+	public interface IGraphNode
+	{
+		int GetDistance(IGraphNode _other);
+	}
 }
