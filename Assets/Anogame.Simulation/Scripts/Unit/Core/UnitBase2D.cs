@@ -55,7 +55,7 @@ namespace anogame_strategy
 
 		public override void MarkAsFriendly()
 		{
-			Debug.Log("friendly");
+			//Debug.Log("friendly");
 			SetColor(new Color(0.8f, 1, 0.8f));
 		}
 
