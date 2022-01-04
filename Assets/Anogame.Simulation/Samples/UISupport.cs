@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using anogamelib;
 
 namespace anogame_strategy
@@ -65,6 +66,13 @@ namespace anogame_strategy
 
 		private void M_strategy_GameEnded(object sender, System.EventArgs e)
 		{
+			GameObject obj = GameObject.Find("SituationText");
+			if (obj != null && obj.GetComponent<Text>() != null)
+			{
+				string msg = "Player " + ((sender as StrategyBase).CurrentPlayerNumber + 1) + " win !!";
+				obj.GetComponent<Text>().text = msg;
+			}
+
 			if ((sender as StrategyBase).CurrentPlayerNumber == 0)
 			{
 

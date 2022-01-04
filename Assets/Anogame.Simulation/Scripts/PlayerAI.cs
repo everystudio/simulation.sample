@@ -14,7 +14,7 @@ namespace anogame_strategy
             m_rnd = new System.Random();
         }
 
-        public override void Play(StrategyBase _gameManager)
+        public override void play(StrategyBase _gameManager)
         {
             _gameManager.CurrentGameState = new GameStateAITurn(_gameManager);
             m_gameManager = _gameManager;
