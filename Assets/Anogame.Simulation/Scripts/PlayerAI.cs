@@ -25,7 +25,7 @@ namespace anogame_strategy
         private IEnumerator GamePlay()
         {
             var myUnits = m_gameManager.Units.FindAll(u => u.PlayerNumber.Equals(PlayerNumber)).ToList();
-            Debug.Log(myUnits.Count);
+            //Debug.Log(myUnits.Count);
             foreach (var unit in myUnits.OrderByDescending(u => u.CurrentTileInfo.GetNeighbours(m_gameManager.TileInfos).FindAll(u.IsCellTraversable).Count))
             {
                 var enemyUnits = m_gameManager.Units.Except(myUnits).ToList();

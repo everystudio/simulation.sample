@@ -35,7 +35,7 @@ namespace anogame_strategy
 
         public override void OnUnitClicked(UnitBase unit)
         {
-            Debug.Log("OnUnitClicked");
+            //Debug.Log("OnUnitClicked");
             if (unit.Equals(m_unit))
             {
                 return;

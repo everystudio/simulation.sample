@@ -14,7 +14,7 @@ namespace anogame_strategy
 		{ m_gameState = _gameState; }
 		public override bool OnClick(string _strName, GameObject _gameObject, PointerEventData _pointer, SE se)
 		{
-			Debug.Log(_strName);
+			//Debug.Log(_strName);
 			if (_strName == "btnClose")
 			{
 				m_gameState.Close(this);

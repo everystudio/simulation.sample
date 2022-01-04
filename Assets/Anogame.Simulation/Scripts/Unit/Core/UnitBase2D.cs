@@ -55,6 +55,7 @@ namespace anogame_strategy
 
 		public override void MarkAsFriendly()
 		{
+			Debug.Log("friendly");
 			SetColor(new Color(0.8f, 1, 0.8f));
 		}
 
@@ -109,23 +110,23 @@ namespace anogame_strategy
 
 		private IEnumerator Glow(Color color, float cooloutTime)
 		{
-			Debug.Log("Glow");
+			//Debug.Log("Glow");
 			Transform marker = transform.Find("Marker");
 
 			if (marker == null)
 			{
-				Debug.Log("notfound");
+				//Debug.Log("notfound");
 				yield break;
 			}
-			Debug.Log(marker);
+			//Debug.Log(marker);
 			SpriteRenderer _renderer = marker.GetComponent<SpriteRenderer>();
-			Debug.Log(_renderer);
+			//Debug.Log(_renderer);
 			float startTime = Time.time;
 
 			int count = 0;
 			while (startTime + cooloutTime > Time.time)
 			{
-				Debug.Log(count++);
+				//Debug.Log(count++);
 				if (_renderer != null)
 				{
 					_renderer.color = Color.Lerp(new Color(1, 1, 1, 0), color, (startTime + cooloutTime) - Time.time);

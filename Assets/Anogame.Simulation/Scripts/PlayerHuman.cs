@@ -8,7 +8,7 @@ namespace anogame_strategy
 	{
 		public override void Play(StrategyBase _gameManager)
 		{
-			Debug.Log($"PlayerHuman:{PlayerNumber}");
+			//Debug.Log($"PlayerHuman:{PlayerNumber}");
 			_gameManager.CurrentGameState = new GameStateWaitingForInput(_gameManager);
 		}
 	}

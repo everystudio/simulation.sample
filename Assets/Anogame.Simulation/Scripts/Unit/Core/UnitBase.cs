@@ -67,7 +67,7 @@ namespace anogame_strategy
                 movementPoints = value;
             }
         }
-        public float MovementAnimationSpeed;
+        public float MovementAnimationSpeed = 3;
 
         private float actionPoints = 1;
         public float ActionPoints
@@ -99,6 +99,10 @@ namespace anogame_strategy
                 //Buffs = new List<Buff>();
                 TotalMovementPoints = MovementPoints;
                 TotalActionPoints = ActionPoints;
+
+                AttackFactor = m_unitData.Attack;
+                DefenceFactor = m_unitData.Defence;
+
             }
             m_bInitialized = true;
         }

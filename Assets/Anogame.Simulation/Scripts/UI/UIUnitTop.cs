@@ -28,7 +28,7 @@ namespace anogame_strategy
 				canv.worldCamera,
 				out MousePos);
 
-			Debug.Log(MousePos);
+			//Debug.Log(MousePos);
 
 			MousePos += new Vector2(-120f, 50f);
 
@@ -42,7 +42,7 @@ namespace anogame_strategy
 
 		public override bool OnClick(string _strName, GameObject _gameObject, PointerEventData _pointer, SE se)
 		{
-			Debug.Log("UIUnitTop.OnClick");
+			//Debug.Log("UIUnitTop.OnClick");
 			if (_strName == "imgCommandMove")
 			{
 				m_gameManager.CurrentGameState = new GameStateUnitMoveArea(m_gameManager, m_selectingUnit);
